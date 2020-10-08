@@ -24,13 +24,13 @@ public class Main {
         for(int[] instruction : instructions){
             switch (instruction[0]){
                 case 0:
-                    start[1] += instruction[1];
+                    start[1] -= instruction[1];
                     break;
                 case 1:
                     start[0] += instruction[1];
                     break;
                 case 2:
-                    start[1] -= instruction[1];
+                    start[1] += instruction[1];
                     break;
                 case 3:
                     start[0] -= instruction[1];
