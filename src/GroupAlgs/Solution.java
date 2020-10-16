@@ -8,51 +8,68 @@ import java.util.regex.*;
 
 public class Solution {
 
-    // Complete the minimumBribes function below.
-    static void minimumBribes(int[] q) {
-        int bribes=0;
-        for(int i = 1; i < q.length; i++) {
-            if(q[i - 1] > i + 2) {
-                System.out.println("Too chaotic");
-                return;
+    // Complete the checkMagazine function below.
+    static void checkMagazine(String[] magazine, String[] note) {
+        if(note.length > magazine.length){
+            System.out.println("No");
+            return;
+        }
+
+        Hashtable<String, Integer> hashMag = new Hashtable<String, Integer>();
+
+        for(int i = 0; i < magazine.length; i++){
+            if(!hashMag.containsKey(magazine[i])){
+                hashMag.put(magazine[i], 1);
+            } else {
+                hashMag.put(magazine[i], hashMag.get(magazine[i]) + 1);
             }
         }
 
-        for(int i = q.length - 1; i > 0; i--){
-            for(int j = i; j >= Math.max(0, i - 2); j--){
-                if(q[j] > q[i]){
-                    int temp = q[j];
-                    q[j] = q[i];
-                    q[i] = temp;
-                    bribes++;
-                }
+        for(int i = 0; i < note.length; i++){
+            if(!hashMag.containsKey(note[i])){
+                System.out.println("No");
+                return;
             }
+            if(hashMag.get(note[i]) == 0){
+                System.out.println("No");
+                return;
+            }
+            hashMag.put(note[i], hashMag.get(note[i]) - 1);
         }
-        System.out.println(bribes);
+        System.out.println("Yes");
+        return;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        int t = scanner.nextInt();
+        String[] mn = scanner.nextLine().split(" ");
+
+        int m = Integer.parseInt(mn[0]);
+
+        int n = Integer.parseInt(mn[1]);
+
+        String[] magazine = new String[m];
+
+        String[] magazineItems = scanner.nextLine().split(" ");
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        for (int tItr = 0; tItr < t; tItr++) {
-            int n = scanner.nextInt();
-            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-            int[] q = new int[n];
-
-            String[] qItems = scanner.nextLine().split(" ");
-            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-            for (int i = 0; i < n; i++) {
-                int qItem = Integer.parseInt(qItems[i]);
-                q[i] = qItem;
-            }
-
-            minimumBribes(q);
+        for (int i = 0; i < m; i++) {
+            String magazineItem = magazineItems[i];
+            magazine[i] = magazineItem;
         }
+
+        String[] note = new String[n];
+
+        String[] noteItems = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int i = 0; i < n; i++) {
+            String noteItem = noteItems[i];
+            note[i] = noteItem;
+        }
+
+        checkMagazine(magazine, note);
 
         scanner.close();
     }
