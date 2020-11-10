@@ -8,68 +8,47 @@ import java.util.regex.*;
 
 public class Solution {
 
-    // Complete the checkMagazine function below.
-    static void checkMagazine(String[] magazine, String[] note) {
-        if(note.length > magazine.length){
-            System.out.println("No");
-            return;
-        }
+    // Complete the alternatingCharacters function below.
+    static int alternatingCharacters(String s) {
+        int deletions = 0;
 
-        Hashtable<String, Integer> hashMag = new Hashtable<String, Integer>();
+        StringBuilder str = new StringBuilder();
+        str.append(s);
+        System.out.println(str);
 
-        for(int i = 0; i < magazine.length; i++){
-            if(!hashMag.containsKey(magazine[i])){
-                hashMag.put(magazine[i], 1);
-            } else {
-                hashMag.put(magazine[i], hashMag.get(magazine[i]) + 1);
-            }
-        }
+        char currentChar = str.charAt(0);
+        System.out.println(currentChar);
 
-        for(int i = 0; i < note.length; i++){
-            if(!hashMag.containsKey(note[i])){
-                System.out.println("No");
-                return;
+        for(int i = 1; i < str.length(); i++){
+            if(str.charAt(i) == currentChar){
+                // str.deleteCharAt(i);
+                deletions++;
+                currentChar = str.charAt(i);
+                continue;
             }
-            if(hashMag.get(note[i]) == 0){
-                System.out.println("No");
-                return;
-            }
-            hashMag.put(note[i], hashMag.get(note[i]) - 1);
+            currentChar = str.charAt(i);
         }
-        System.out.println("Yes");
-        return;
+        return deletions;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        String[] mn = scanner.nextLine().split(" ");
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int m = Integer.parseInt(mn[0]);
-
-        int n = Integer.parseInt(mn[1]);
-
-        String[] magazine = new String[m];
-
-        String[] magazineItems = scanner.nextLine().split(" ");
+        int q = scanner.nextInt();
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        for (int i = 0; i < m; i++) {
-            String magazineItem = magazineItems[i];
-            magazine[i] = magazineItem;
+        for (int qItr = 0; qItr < q; qItr++) {
+            String s = scanner.nextLine();
+
+            int result = alternatingCharacters(s);
+
+            bufferedWriter.write(String.valueOf(result));
+            bufferedWriter.newLine();
         }
 
-        String[] note = new String[n];
-
-        String[] noteItems = scanner.nextLine().split(" ");
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-        for (int i = 0; i < n; i++) {
-            String noteItem = noteItems[i];
-            note[i] = noteItem;
-        }
-
-        checkMagazine(magazine, note);
+        bufferedWriter.close();
 
         scanner.close();
     }
