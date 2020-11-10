@@ -8,27 +8,19 @@ import java.util.regex.*;
 
 public class Solution {
 
-    // Complete the alternatingCharacters function below.
-    static int alternatingCharacters(String s) {
-        int deletions = 0;
+    // Complete the minimumAbsoluteDifference function below.
+    static int minimumAbsoluteDifference(int[] arr) {
+        int leastAbsDif = Math.abs(arr[0] - arr[1]);
 
-        StringBuilder str = new StringBuilder();
-        str.append(s);
-        System.out.println(str);
-
-        char currentChar = str.charAt(0);
-        System.out.println(currentChar);
-
-        for(int i = 1; i < str.length(); i++){
-            if(str.charAt(i) == currentChar){
-                // str.deleteCharAt(i);
-                deletions++;
-                currentChar = str.charAt(i);
-                continue;
+        for(int i = 0; i < arr.length; i++){
+            for(int j = i + 1; j < arr.length; j++){
+                int tempLeastAbsDif = Math.abs(arr[i] - arr[j]);
+                if(tempLeastAbsDif < leastAbsDif){
+                    leastAbsDif = tempLeastAbsDif;
+                }
             }
-            currentChar = str.charAt(i);
         }
-        return deletions;
+        return leastAbsDif;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
@@ -36,17 +28,23 @@ public class Solution {
     public static void main(String[] args) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int q = scanner.nextInt();
+        int n = scanner.nextInt();
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        for (int qItr = 0; qItr < q; qItr++) {
-            String s = scanner.nextLine();
+        int[] arr = new int[n];
 
-            int result = alternatingCharacters(s);
+        String[] arrItems = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-            bufferedWriter.write(String.valueOf(result));
-            bufferedWriter.newLine();
+        for (int i = 0; i < n; i++) {
+            int arrItem = Integer.parseInt(arrItems[i]);
+            arr[i] = arrItem;
         }
+
+        int result = minimumAbsoluteDifference(arr);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
 
         bufferedWriter.close();
 
