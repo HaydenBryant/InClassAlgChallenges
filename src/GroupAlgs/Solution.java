@@ -1,53 +1,56 @@
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
+import java.util.Scanner;
+// Write your code here. DO NOT use an access modifier in your class declaration.
+class Parser{
 
-public class Solution {
+    public Boolean isBalanced(String s){
+        ArrayList<String> list = new ArrayList<String>(Arrays.asList(s.split("")));
+        if(list.get(0).contains(")")|| list.get(0).contains("}")){
+            return false;
+        }
+        int openParen = 0;
+        int closeParen = 0;
+        int openBrac = 0;
+        int closeBrac = 0;
 
-    // Complete the minimumAbsoluteDifference function below.
-    static int minimumAbsoluteDifference(int[] arr) {
-        int leastAbsDif = Math.abs(arr[0] - arr[1]);
+        for(String item : list){
+            switch(item){
+                case "(":
 
-        for(int i = 0; i < arr.length; i++){
-            for(int j = i + 1; j < arr.length; j++){
-                int tempLeastAbsDif = Math.abs(arr[i] - arr[j]);
-                if(tempLeastAbsDif < leastAbsDif){
-                    leastAbsDif = tempLeastAbsDif;
-                }
+                    openParen++;
+                    break;
+                case ")":
+
+                    closeParen++;
+                    break;
+                case "{":
+
+                    openBrac++;
+                    break;
+                case "}":
+
+                    closeBrac++;
+                    break;
             }
         }
-        return leastAbsDif;
+        if(openBrac == closeBrac && openParen == closeParen){
+            return true;
+        }
+        return false;
+
     }
+}
+class Solution {
 
-    private static final Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) {
+        Parser parser = new Parser();
 
-    public static void main(String[] args) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+        Scanner in = new Scanner(System.in);
 
-        int n = scanner.nextInt();
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-        int[] arr = new int[n];
-
-        String[] arrItems = scanner.nextLine().split(" ");
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-        for (int i = 0; i < n; i++) {
-            int arrItem = Integer.parseInt(arrItems[i]);
-            arr[i] = arrItem;
+        while (in.hasNext()) {
+            System.out.println(parser.isBalanced(in.next()));
         }
 
-        int result = minimumAbsoluteDifference(arr);
-
-        bufferedWriter.write(String.valueOf(result));
-        bufferedWriter.newLine();
-
-        bufferedWriter.close();
-
-        scanner.close();
+        in.close();
     }
 }
