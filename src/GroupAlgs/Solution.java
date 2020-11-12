@@ -1,56 +1,66 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
 import java.util.*;
-import java.util.Scanner;
-// Write your code here. DO NOT use an access modifier in your class declaration.
-class Parser{
+import java.util.concurrent.*;
+import java.util.regex.*;
 
-    public Boolean isBalanced(String s){
-        ArrayList<String> list = new ArrayList<String>(Arrays.asList(s.split("")));
-        if(list.get(0).contains(")")|| list.get(0).contains("}")){
-            return false;
+public class Solution {
+
+    // Complete the hackerlandRadioTransmitters function below.
+    static int hackerlandRadioTransmitters(int[] x, int k) {
+        int transmitters = 0;
+
+        if(x.length == 1){
+            return 1;
         }
-        int openParen = 0;
-        int closeParen = 0;
-        int openBrac = 0;
-        int closeBrac = 0;
+        Arrays.sort(x);
 
-        for(String item : list){
-            switch(item){
-                case "(":
+        // int i = 0
+        // int range = 0;
 
-                    openParen++;
-                    break;
-                case ")":
+        // while(i < x.length){
 
-                    closeParen++;
-                    break;
-                case "{":
+        // }
 
-                    openBrac++;
-                    break;
-                case "}":
 
-                    closeBrac++;
-                    break;
-            }
+        for(int i = (x[0] + k); i <= x[x.length-1]; i += k * 2){
+
+            transmitters++;
         }
-        if(openBrac == closeBrac && openParen == closeParen){
-            return true;
-        }
-        return false;
 
+        return transmitters;
     }
-}
-class Solution {
 
-    public static void main(String[] args) {
-        Parser parser = new Parser();
+    private static final Scanner scanner = new Scanner(System.in);
 
-        Scanner in = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        while (in.hasNext()) {
-            System.out.println(parser.isBalanced(in.next()));
+        String[] nk = scanner.nextLine().split(" ");
+
+        int n = Integer.parseInt(nk[0]);
+
+        int k = Integer.parseInt(nk[1]);
+
+        int[] x = new int[n];
+
+        String[] xItems = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int i = 0; i < n; i++) {
+            int xItem = Integer.parseInt(xItems[i]);
+            x[i] = xItem;
         }
 
-        in.close();
+        int result = hackerlandRadioTransmitters(x, k);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
+
+        scanner.close();
     }
 }
