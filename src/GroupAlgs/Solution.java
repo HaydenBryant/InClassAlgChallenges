@@ -8,29 +8,29 @@ import java.util.regex.*;
 
 public class Solution {
 
-    // Complete the hackerlandRadioTransmitters function below.
-    static int hackerlandRadioTransmitters(int[] x, int k) {
-        int transmitters = 0;
+    // Complete the organizingContainers function below.
+    static String organizingContainers(int[][] container) {
+        int contLen = container.length;
+        int[] rows = new int[contLen];
+        int[] cols = new int[contLen];
 
-        if(x.length == 1){
-            return 1;
-        }
-        Arrays.sort(x);
-
-        // int i = 0
-        // int range = 0;
-
-        // while(i < x.length){
-
-        // }
-
-
-        for(int i = (x[0] + k); i <= x[x.length-1]; i += k * 2){
-
-            transmitters++;
+        for(int i = 0; i < contLen; i++){
+            for(int j = 0; j < container[i].length; j++){
+                rows[i] += container[i][j];
+                cols[j] += container[i][j];
+            }
         }
 
-        return transmitters;
+        Arrays.sort(rows);
+        Arrays.sort(cols);
+
+        for(int i = 0; i < rows.length; i++){
+            if(rows[i] != cols[i]){
+                return "Impossible";
+            }
+        }
+        return "Possible";
+
     }
 
     private static final Scanner scanner = new Scanner(System.in);
@@ -38,29 +38,34 @@ public class Solution {
     public static void main(String[] args) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        String[] nk = scanner.nextLine().split(" ");
-
-        int n = Integer.parseInt(nk[0]);
-
-        int k = Integer.parseInt(nk[1]);
-
-        int[] x = new int[n];
-
-        String[] xItems = scanner.nextLine().split(" ");
+        int q = scanner.nextInt();
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        for (int i = 0; i < n; i++) {
-            int xItem = Integer.parseInt(xItems[i]);
-            x[i] = xItem;
+        for (int qItr = 0; qItr < q; qItr++) {
+            int n = scanner.nextInt();
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+            int[][] container = new int[n][n];
+
+            for (int i = 0; i < n; i++) {
+                String[] containerRowItems = scanner.nextLine().split(" ");
+                scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+                for (int j = 0; j < n; j++) {
+                    int containerItem = Integer.parseInt(containerRowItems[j]);
+                    container[i][j] = containerItem;
+                }
+            }
+
+            String result = organizingContainers(container);
+
+            bufferedWriter.write(result);
+            bufferedWriter.newLine();
         }
-
-        int result = hackerlandRadioTransmitters(x, k);
-
-        bufferedWriter.write(String.valueOf(result));
-        bufferedWriter.newLine();
 
         bufferedWriter.close();
 
         scanner.close();
     }
 }
+
