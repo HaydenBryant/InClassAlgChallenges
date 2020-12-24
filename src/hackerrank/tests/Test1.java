@@ -1,242 +1,66 @@
-package hackerrank.tests;
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
 
-//#1
+public class Solution {
 
-import org.w3c.dom.Node;
+    // Complete the breakingRecords function below.
+    static int[] breakingRecords(int[] scores) {
+        int min = scores[0];
+        int max = scores[0];
+        int[] changes = new int[2];
 
-import javax.sound.sampled.Line;
-import java.awt.*;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Vector;
-
-public static String lastLetters(String word) {
-        // Write your code here
-        StringBuilder output = new StringBuilder();
-
-        for(int i = word.length() - 2; i < word.length(); i++){
-        output.append(word.charAt(i));
-        }
-        return output.reverse().insert(1, " ", 0, 1).toString();
-
-        }
-
-//#2
-public static void fizzBuzz(int n) {
-        // Write your code here
-        for(int i = 1; i <= n; i++){
-        if(i % 3 == 0 && i % 5 == 0){
-        System.out.println("FizzBuzz");
-        continue;
-        }
-        if(i % 3 == 0){
-        System.out.println("Fizz");
-        continue;
-        }
-        if(i % 5 == 0){
-        System.out.println("Buzz");
-        continue;
-        }
-        System.out.println(i);
-        }
-        }
-
-//#3
-class LineList implements ListOfLines {
-    public Vector<Line> list_of_lines;
-    public LineList(Vector<Line> list_of_lines){
-        this.list_of_lines = list_of_lines;
-    }
-    public Line getLineWithMaxLength(){
-        Line longestLine = list_of_lines.get(0);
-        for(Line line : list_of_lines){
-            if(line.getLineLength() > longestLine.getLineLength()){
-                longestLine = line;
+        for(int score : scores){
+            if(score > max){
+                max = score;
+                changes[0]++;
+                continue;
+            }
+            if(score < min){
+                min = score;
+                changes[1]++;
             }
         }
-        return longestLine;
+        return changes;
+
     }
 
-    public Vector<Line> getLinesFromStartingPoint(Point p){
-        Vector<Line> linesFromPoint = new Vector<Line>();
+    private static final Scanner scanner = new Scanner(System.in);
 
-        for(Line line : list_of_lines){
-            if(line.getStart() == p){
-                linesFromPoint.add(line);
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int n = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        int[] scores = new int[n];
+
+        String[] scoresItems = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int i = 0; i < n; i++) {
+            int scoresItem = Integer.parseInt(scoresItems[i]);
+            scores[i] = scoresItem;
+        }
+
+        int[] result = breakingRecords(scores);
+
+        for (int i = 0; i < result.length; i++) {
+            bufferedWriter.write(String.valueOf(result[i]));
+
+            if (i != result.length - 1) {
+                bufferedWriter.write(" ");
             }
         }
 
-        return linesFromPoint;
-    }
+        bufferedWriter.newLine();
 
-}
+        bufferedWriter.close();
 
-//#4
-private static int isPresent(Node root, int val){
-/* For your reference
-class Node {
-		Node left, right;
-		int data;
-                Node(int newData) {
-			left = right = null;
-			data = newData;
-		}
-	}
-*/
-    Node trav = root;
-
-    while(true){
-        if(trav.data == val){
-            return 1;
-        }
-        if(val > trav.data && trav.right != null){
-            trav = trav.right;
-            continue;
-        } else if (val < trav.data && trav.left != null){
-            trav = trav.left;
-            continue;
-        } return 0;
+        scanner.close();
     }
 }
-
-//#5
-public static int closedPaths(int number) {
-    // Write your code here
-    HashMap<String, Integer> closedPaths = new HashMap<>();
-    closedPaths.put("0", 1);
-    closedPaths.put("4", 1);
-    closedPaths.put("6", 1);
-    closedPaths.put("9", 1);
-    closedPaths.put("8", 2);
-
-    int totalClosedPaths = 0;
-
-    String numString = Integer.toString(number);
-
-    for(String num: numString.split("")){
-        if(closedPaths.containsKey(num)){
-            totalClosedPaths += closedPaths.get(num);
-        }
-    }
-
-    return totalClosedPaths;
-}
-
-//#6
-final static String regularExpression = "[a-z]{1,6}[_]{0,1}[0-9]{0,4}@hackerrank.com";
-
-//#7
-public static int priceCheck(List<String> products, List<Float> productPrices, List<String> productSold, List<Float> soldPrice) {
-    // Write your code here
-    int wrongInputs = 0;
-
-    for(int i = 0; i < productSold.size(); i++){
-        if(!productPrices.get(products.indexOf(productSold.get(i))).equals(soldPrice.get(i))){
-            wrongInputs++;
-        }
-
-    }
-
-    return wrongInputs;
-}
-
-}
-
-//#8
-import java.util.Scanner;
-        import java.io.*;
-
-
-abstract class Car {
-    protected boolean isSedan;
-    protected String seats;
-
-    public Car(boolean isSedan, String seats) {
-        this.isSedan = isSedan;
-        this.seats = seats;
-    }
-
-    public boolean getIsSedan() {
-        return this.isSedan;
-    }
-
-    public String getSeats() {
-        return this.seats;
-    }
-
-    abstract public String getMileage();
-
-    public void printCar(String name) {
-        System.out.println(
-                "A " + name + " is " + (this.getIsSedan() ? "" : "not ")
-                        + "Sedan, is " + this.getSeats() + "-seater, and has a mileage of around "
-                        + this.getMileage() + ".");
-    }
-}
-// Write your code here.
-
-/**
- *   WagonR class
- **/
-class WagonR extends Car{
-    public int mileage;
-    public WagonR(int mileage){
-        super(false, "4");
-        this.mileage = mileage;
-    }
-
-    public String getMileage(){
-        return ""+mileage + " kmpl";
-    }
-}
-/**
- *   HondaCity class
- **/
-class HondaCity extends Car{
-    public int mileage;
-    public HondaCity(int mileage){
-        super(true, "4");
-        this.mileage = mileage;
-    }
-
-    public String getMileage(){
-        return ""+mileage + " kmpl";
-    }
-}
-
-/**
- *   InnovaCrysta class
- **/
-class InnovaCrysta extends Car{
-    public int mileage;
-    public InnovaCrysta(int mileage){
-        super(false, "6");
-        this.mileage = mileage;
-    }
-
-    public String getMileage(){
-        return ""+mileage + " kmpl";
-    }
-}
-
-//#9
-//Not done
-public static int countGroups(List<String> related) {
-    // Write your code here
-    int groups = 0;
-    List<String> firstGroup = Arrays.asList(related.get(0));
-
-
-    for(int i = 1; i < related.size(); i++){
-        List<String> tempList = Arrays.asList(related.get(i));
-        for()
-    }
-    return groups;
-}
-
-//#10
-SELECT ID, NAME FROM CUSTOMER
-    WHERE COUNTRY = "USA"
-    AND CREDITS > 100000
-        ORDER BY ID;
