@@ -8,24 +8,31 @@ import java.util.regex.*;
 
 public class Solution {
 
-    // Complete the breakingRecords function below.
-    static int[] breakingRecords(int[] scores) {
-        int min = scores[0];
-        int max = scores[0];
-        int[] changes = new int[2];
+    // Complete the encryption function below.
+    static String encryption(String s) {
+        String noSpaces = s.replaceAll("\\s+","");
+        double columns = Math.floor(Math.sqrt(s.length()));
+        double rows = Math.ceil(Math.sqrt(s.length()));
 
-        for(int score : scores){
-            if(score > max){
-                max = score;
-                changes[0]++;
+        ArrayList<ArrayList<String>> array = new ArrayList<ArrayList<String>>();
+        ArrayList<String> temp = new ArrayList<String>();
+        int count = 0;
+        System.out.println(noSpaces);
+        for(String letter : noSpaces.split("")){
+            if(count <= columns){
+                temp.add(letter);
+                count++;
                 continue;
             }
-            if(score < min){
-                min = score;
-                changes[1]++;
-            }
+            System.out.println(temp);
+            array.add(temp);
+            temp = new ArrayList<String>();
+            temp.add(letter);
+            count = 0;
+
         }
-        return changes;
+        System.out.println(array);
+        return "Done";
 
     }
 
@@ -34,29 +41,11 @@ public class Solution {
     public static void main(String[] args) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int n = scanner.nextInt();
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+        String s = scanner.nextLine();
 
-        int[] scores = new int[n];
+        String result = encryption(s);
 
-        String[] scoresItems = scanner.nextLine().split(" ");
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-        for (int i = 0; i < n; i++) {
-            int scoresItem = Integer.parseInt(scoresItems[i]);
-            scores[i] = scoresItem;
-        }
-
-        int[] result = breakingRecords(scores);
-
-        for (int i = 0; i < result.length; i++) {
-            bufferedWriter.write(String.valueOf(result[i]));
-
-            if (i != result.length - 1) {
-                bufferedWriter.write(" ");
-            }
-        }
-
+        bufferedWriter.write(result);
         bufferedWriter.newLine();
 
         bufferedWriter.close();
