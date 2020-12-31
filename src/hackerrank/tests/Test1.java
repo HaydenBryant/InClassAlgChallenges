@@ -11,28 +11,40 @@ public class Solution {
     // Complete the encryption function below.
     static String encryption(String s) {
         String noSpaces = s.replaceAll("\\s+","");
-        double columns = Math.floor(Math.sqrt(s.length()));
-        double rows = Math.ceil(Math.sqrt(s.length()));
+        double rows = Math.floor(Math.sqrt(s.length()));
+        double columns = Math.ceil(Math.sqrt(s.length()));
 
         ArrayList<ArrayList<String>> array = new ArrayList<ArrayList<String>>();
         ArrayList<String> temp = new ArrayList<String>();
+
         int count = 0;
-        System.out.println(noSpaces);
+
         for(String letter : noSpaces.split("")){
-            if(count <= columns){
-                temp.add(letter);
-                count++;
+            temp.add(letter);
+            count++;
+            if(count == columns){
+                array.add(temp);
+                temp = new ArrayList<String>();
+                count = 0;
                 continue;
             }
-            System.out.println(temp);
-            array.add(temp);
-            temp = new ArrayList<String>();
-            temp.add(letter);
-            count = 0;
 
         }
-        System.out.println(array);
-        return "Done";
+
+        String output = "";
+        // System.out.println(array);
+
+        for(int i = 0; i < columns; i++){
+            for(int j = 0; j < rows; j++){
+                if(((j * columns) + i) < (s.length())){
+                    output += array.get(j).get(i);
+                }
+            }
+            if(i < (columns - 1)){
+                output+=" ";
+            }
+        }
+        return output;
 
     }
 
