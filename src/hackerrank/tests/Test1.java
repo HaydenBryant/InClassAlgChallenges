@@ -4,64 +4,50 @@ import java.security.*;
 import java.text.*;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.function.*;
 import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 public class Solution {
 
-    // Complete the encryption function below.
-    static String encryption(String s) {
-        String noSpaces = s.replaceAll("\\s+","");
-        double rows = Math.floor(Math.sqrt(s.length()));
-        double columns = Math.ceil(Math.sqrt(s.length()));
+    // Complete the bonAppetit function below.
+    static void bonAppetit(List<Integer> bill, int k, int b) {
+        int correctBill = 0;
 
-        ArrayList<ArrayList<String>> array = new ArrayList<ArrayList<String>>();
-        ArrayList<String> temp = new ArrayList<String>();
-
-        int count = 0;
-
-        for(String letter : noSpaces.split("")){
-            temp.add(letter);
-            count++;
-            if(count == columns){
-                array.add(temp);
-                temp = new ArrayList<String>();
-                count = 0;
-                continue;
-            }
-
+        for(int item : bill){
+            correctBill += item;
         }
 
-        String output = "";
-        // System.out.println(array);
+        correctBill -= bill.get(k);
+        correctBill = correctBill/2;
 
-        for(int i = 0; i < columns; i++){
-            for(int j = 0; j < rows; j++){
-                if(((j * columns) + i) < (s.length())){
-                    output += array.get(j).get(i);
-                }
-            }
-            if(i < (columns - 1)){
-                output+=" ";
-            }
+        if(b == correctBill){
+            System.out.println("Bon Appetit");
+        } else {
+            System.out.println(b - correctBill);
         }
-        return output;
 
     }
 
-    private static final Scanner scanner = new Scanner(System.in);
-
     public static void main(String[] args) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-        String s = scanner.nextLine();
+        String[] nk = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
 
-        String result = encryption(s);
+        int n = Integer.parseInt(nk[0]);
 
-        bufferedWriter.write(result);
-        bufferedWriter.newLine();
+        int k = Integer.parseInt(nk[1]);
 
-        bufferedWriter.close();
+        List<Integer> bill = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+                .map(Integer::parseInt)
+                .collect(toList());
 
-        scanner.close();
+        int b = Integer.parseInt(bufferedReader.readLine().trim());
+
+        bonAppetit(bill, k, b);
+
+        bufferedReader.close();
     }
 }
