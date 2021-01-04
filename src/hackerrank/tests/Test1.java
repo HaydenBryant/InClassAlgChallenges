@@ -8,24 +8,17 @@ import java.util.regex.*;
 
 public class Solution {
 
-    // Complete the sockMerchant function below.
-    static int sockMerchant(int n, int[] ar) {
-        int pairs = 0;
-        HashMap<Integer, Integer> sockCount = new HashMap<Integer, Integer>();
-
-        for(int sock : ar){
-            if(sockCount.containsKey(sock)){
-                sockCount.put(sock, sockCount.get(sock) + 1);
-            } else {
-                sockCount.put(sock, 1);
-            }
+    // Complete the catAndMouse function below.
+    static String catAndMouse(int x, int y, int z) {
+        if(Math.abs(x - z) < Math.abs(y - z)){
+            return "Cat A";
         }
-
-        for(int socks : sockCount.keySet()){
-            pairs += Math.floor(sockCount.get(socks) / 2);
+        else if (Math.abs(x - z) > Math.abs(y - z)){
+            return "Cat B";
         }
-
-        return pairs;
+        else{
+            return "Mouse C";
+        }
 
     }
 
@@ -34,23 +27,23 @@ public class Solution {
     public static void main(String[] args) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int n = scanner.nextInt();
+        int q = scanner.nextInt();
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        int[] ar = new int[n];
+        for (int qItr = 0; qItr < q; qItr++) {
+            String[] xyz = scanner.nextLine().split(" ");
 
-        String[] arItems = scanner.nextLine().split(" ");
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+            int x = Integer.parseInt(xyz[0]);
 
-        for (int i = 0; i < n; i++) {
-            int arItem = Integer.parseInt(arItems[i]);
-            ar[i] = arItem;
+            int y = Integer.parseInt(xyz[1]);
+
+            int z = Integer.parseInt(xyz[2]);
+
+            String result = catAndMouse(x, y, z);
+
+            bufferedWriter.write(result);
+            bufferedWriter.newLine();
         }
-
-        int result = sockMerchant(n, ar);
-
-        bufferedWriter.write(String.valueOf(result));
-        bufferedWriter.newLine();
 
         bufferedWriter.close();
 
