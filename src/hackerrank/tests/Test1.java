@@ -4,50 +4,56 @@ import java.security.*;
 import java.text.*;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.function.*;
 import java.util.regex.*;
-import java.util.stream.*;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
 
 public class Solution {
 
-    // Complete the bonAppetit function below.
-    static void bonAppetit(List<Integer> bill, int k, int b) {
-        int correctBill = 0;
+    // Complete the sockMerchant function below.
+    static int sockMerchant(int n, int[] ar) {
+        int pairs = 0;
+        HashMap<Integer, Integer> sockCount = new HashMap<Integer, Integer>();
 
-        for(int item : bill){
-            correctBill += item;
+        for(int sock : ar){
+            if(sockCount.containsKey(sock)){
+                sockCount.put(sock, sockCount.get(sock) + 1);
+            } else {
+                sockCount.put(sock, 1);
+            }
         }
 
-        correctBill -= bill.get(k);
-        correctBill = correctBill/2;
-
-        if(b == correctBill){
-            System.out.println("Bon Appetit");
-        } else {
-            System.out.println(b - correctBill);
+        for(int socks : sockCount.keySet()){
+            pairs += Math.floor(sockCount.get(socks) / 2);
         }
+
+        return pairs;
 
     }
 
+    private static final Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        String[] nk = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+        int n = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        int n = Integer.parseInt(nk[0]);
+        int[] ar = new int[n];
 
-        int k = Integer.parseInt(nk[1]);
+        String[] arItems = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        List<Integer> bill = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-                .map(Integer::parseInt)
-                .collect(toList());
+        for (int i = 0; i < n; i++) {
+            int arItem = Integer.parseInt(arItems[i]);
+            ar[i] = arItem;
+        }
 
-        int b = Integer.parseInt(bufferedReader.readLine().trim());
+        int result = sockMerchant(n, ar);
 
-        bonAppetit(bill, k, b);
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
 
-        bufferedReader.close();
+        bufferedWriter.close();
+
+        scanner.close();
     }
 }
