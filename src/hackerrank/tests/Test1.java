@@ -8,17 +8,28 @@ import java.util.regex.*;
 
 public class Solution {
 
-    // Complete the catAndMouse function below.
-    static String catAndMouse(int x, int y, int z) {
-        if(Math.abs(x - z) < Math.abs(y - z)){
-            return "Cat A";
+    // Complete the activityNotifications function below.
+    static int activityNotifications(int[] expenditure, int d) {
+        if(d > expenditure.length){
+            return 0;
         }
-        else if (Math.abs(x - z) > Math.abs(y - z)){
-            return "Cat B";
+
+        int notifications = 0;
+        int lookBackDaysTotal = 0;
+
+        for(int i = 0; i < d; i++){
+            lookBackDaysTotal += expenditure[i];
         }
-        else{
-            return "Mouse C";
+
+        for(int i = d; i < expenditure.length; i++){
+            if(expenditure[i] > ((lookBackDaysTotal / d) * 2)){
+                notifications++;
+            }
+            lookBackDaysTotal -= expenditure[i - d];
+            lookBackDaysTotal += expenditure[i];
         }
+
+        return notifications;
 
     }
 
@@ -27,23 +38,26 @@ public class Solution {
     public static void main(String[] args) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int q = scanner.nextInt();
+        String[] nd = scanner.nextLine().split(" ");
+
+        int n = Integer.parseInt(nd[0]);
+
+        int d = Integer.parseInt(nd[1]);
+
+        int[] expenditure = new int[n];
+
+        String[] expenditureItems = scanner.nextLine().split(" ");
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        for (int qItr = 0; qItr < q; qItr++) {
-            String[] xyz = scanner.nextLine().split(" ");
-
-            int x = Integer.parseInt(xyz[0]);
-
-            int y = Integer.parseInt(xyz[1]);
-
-            int z = Integer.parseInt(xyz[2]);
-
-            String result = catAndMouse(x, y, z);
-
-            bufferedWriter.write(result);
-            bufferedWriter.newLine();
+        for (int i = 0; i < n; i++) {
+            int expenditureItem = Integer.parseInt(expenditureItems[i]);
+            expenditure[i] = expenditureItem;
         }
+
+        int result = activityNotifications(expenditure, d);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
 
         bufferedWriter.close();
 
