@@ -15,23 +15,46 @@ public class Solution {
         }
 
         int notifications = 0;
-        int lookBackDaysTotal = 0;
+        int median = (int) Math.floor(d / 2);
+        System.out.println(median);
 
-        for(int i = 0; i < d; i++){
-            lookBackDaysTotal += expenditure[i];
-        }
+        if(d % 2 != 0){
 
-        for(int i = d; i < expenditure.length; i++){
-            if(expenditure[i] > ((lookBackDaysTotal / d) * 2)){
-                notifications++;
+            for(int i = d; i < expenditure.length; i++){
+                if(expenditure[i] > (expenditure[median] * 2)){
+                    notifications++;
+                }
+                median++;
             }
-            lookBackDaysTotal -= expenditure[i - d];
-            lookBackDaysTotal += expenditure[i];
         }
+
+
+
+        // ArrayList<Integer> lookBackDays = new ArrayList<Integer>();
+
+        // for(int i = 0; i < d; i++){
+        //     lookBackDays.add(expenditure[i]);
+        // }
+
+        // for(int i = d; i < expenditure.length; i++){
+        //     if(expenditure[i] > ((lookBackDaysTotal / d) * 2)){
+        //         notifications++;
+        //     }
+        //     lookBackDaysTotal -= expenditure[i - d];
+        //     lookBackDaysTotal += expenditure[i];
+        // }
 
         return notifications;
 
     }
+
+    // public static int findMedian(ArrayList<Integer> list, int d){
+    //     if(d % 2 != 0){
+    //         return list.get(d);
+    //     } else {
+
+    //     }
+    // }
 
     private static final Scanner scanner = new Scanner(System.in);
 
