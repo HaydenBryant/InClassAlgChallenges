@@ -15,16 +15,29 @@ public class Solution {
         }
 
         int notifications = 0;
-        int median = (int) Math.floor(d / 2);
+        int median = d / 2 + 1;
         System.out.println(median);
 
         if(d % 2 != 0){
 
             for(int i = d; i < expenditure.length; i++){
-                if(expenditure[i] > (expenditure[median] * 2)){
+                System.out.print(median);
+                System.out.print(expenditure[i]);
+                System.out.println(expenditure[median]);
+                if(expenditure[i] >= (expenditure[median] * 2)){
                     notifications++;
                 }
                 median++;
+            }
+        } else {
+            int medianTwo = median + 1;
+            for(int i = d; i < expenditure.length; i++){
+                int medianDif = ((expenditure[median] + expenditure[medianTwo]) / 2) * 2;
+                if(expenditure[i] >= medianDif){
+                    notifications++;
+                }
+                median++;
+                medianTwo++;
             }
         }
 
