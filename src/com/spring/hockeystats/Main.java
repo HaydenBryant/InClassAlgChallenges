@@ -1,71 +1,32 @@
-package com.spring.hockeystats;
+// Singly-linked lists are already defined with this interface:
+// class ListNode<T> {
+//   ListNode(T x) {
+//     value = x;
+//   }
+//   T value;
+//   ListNode<T> next;
+// }
+//
+boolean isListPalindrome(ListNode<Integer> l) {
+        Stack<Integer> stack = new Stack<>();
+        ListNode<Integer> t = l;
 
-import java.util.Scanner;
-
-public class Main {
-
-    public static Scanner scan = new Scanner(System.in);
-
-    public static void main(String[] args) {
-        // write your code here
-//        int[][] instructions = new int[][]{{0, 2}, {1, 4}, {0, 3}, {3, 2}};
-//        int[] start = new int[]{2, 2};
-
-//        int[] start = getStart();
-//        int[][] instructions = getInstructions();
-
-//        int[] end = treasureHunter(getStart(), getInstructions());
-
-        printEnd(treasureHunter(getStart(), getInstructions()));
-    }
-
-    public static int[] treasureHunter(int[] start, int[][] instructions){
-
-        for(int[] instruction : instructions){
-            switch (instruction[0]){
-                case 0:
-                    start[1] -= instruction[1];
-                    break;
-                case 1:
-                    start[0] += instruction[1];
-                    break;
-                case 2:
-                    start[1] += instruction[1];
-                    break;
-                case 3:
-                    start[0] -= instruction[1];
-                    break;
-            }
+        while(t != null){
+        stack.push(t.value);
+        t = t.next;
         }
 
-        return start;
-    }
+        t = l;
 
-    public static int[] getStart(){
-        System.out.println("Please input a starting position using two numbers ex(2 4): ");
-        int x = scan.nextInt();
-        int y = scan.nextInt();
-        int[] start = new int[] {x, y};
-        return start;
-    }
-
-    public static int[][] getInstructions(){
-        System.out.println("How many instructions would you like to give?: ");
-        int steps = scan.nextInt();
-        int[][] instructions = new int[steps][2];
-
-        for (int i = 0; i < steps; i++){
-            System.out.println("Please input an instruction using two numbers ex(2 4): ");
-            int x = scan.nextInt();
-            int y = scan.nextInt();
-            int[] step = new int[]{x, y};
-            instructions[i] = step;
+        while(t != null){
+        int num = stack.pop();
+        if(num != t.value){
+        return false;
+        } else {
+        t = t.next;
+        }
         }
 
-        return instructions;
-    }
+        return true;
 
-    public static void printEnd(int[] end){
-        System.out.println("[" + end[0] + ", " + end[1] + "]");
-    }
-}
+        }
