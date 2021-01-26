@@ -1,32 +1,19 @@
-// Singly-linked lists are already defined with this interface:
-// class ListNode<T> {
-//   ListNode(T x) {
-//     value = x;
-//   }
-//   T value;
-//   ListNode<T> next;
-// }
-//
-boolean isListPalindrome(ListNode<Integer> l) {
-        Stack<Integer> stack = new Stack<>();
-        ListNode<Integer> t = l;
+boolean containsCloseNums(int[] nums, int k) {
+        Hashtable<Integer, Integer> table = new Hashtable<>();
 
-        while(t != null){
-        stack.push(t.value);
-        t = t.next;
-        }
 
-        t = l;
-
-        while(t != null){
-        int num = stack.pop();
-        if(num != t.value){
-        return false;
+        for(int i = 0; i < nums.length; i++){
+        if(!table.containsKey(nums[i])){
+        table.put(nums[i], i);
         } else {
-        t = t.next;
-        }
-        }
-
+        if(Math.abs(table.get(nums[i]) - i) <= k){
         return true;
+        } else {
+        table.put(nums[i], i);
+        }
+        }
+        }
 
+
+        return false;
         }
