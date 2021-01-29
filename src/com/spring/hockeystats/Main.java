@@ -1,19 +1,41 @@
-int kthLargestElement(int[] nums, int k) {
-        int elm = k - 1;
-        int prev = nums[0];
-        int kthElm = 0;
+// Singly-linked lists are already defined with this interface:
+// class ListNode<T> {
+//   ListNode(T x) {
+//     value = x;
+//   }
+//   T value;
+//   ListNode<T> next;
+// }
+//
+boolean isListPalindrome(ListNode<Integer> l) {
 
-        for(int i = 1; i < nums.length; i++){
-        if(nums[i] == prev){
-        continue;
-        } else {
-        prev = nums[i];
-        k--;
+        ListNode<Integer> previous = null;
+        ListNode<Integer> current = l;
+        ListNode<Integer> following = l;
+        Boolean isPal = true;
+
+        while (current != null) {
+        following = following.next;
+        current.next = previous;
+        previous = current;
+        current = following;
         }
-        if(k == 0){
-        kthElm = prev;
+
+        ListNode<Integer> t = l;
+        ListNode<Integer> tr = previous;
+
+        while(t != null && tr != null){
+        if(t.value != tr.value){
+        isPal = false;
         break;
+        } else {
+        t = t.next;
+        tr = tr.next;
         }
         }
-        return kthElm;
+
+
+
+        return isPal;
+
         }
