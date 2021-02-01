@@ -1,41 +1,15 @@
-// Singly-linked lists are already defined with this interface:
-// class ListNode<T> {
-//   ListNode(T x) {
-//     value = x;
-//   }
-//   T value;
-//   ListNode<T> next;
-// }
-//
-boolean isListPalindrome(ListNode<Integer> l) {
+int kthLargestElement(int[] nums, int k) {
 
-        ListNode<Integer> previous = null;
-        ListNode<Integer> current = l;
-        ListNode<Integer> following = l;
-        Boolean isPal = true;
+        TreeSet<Integer> tree = new TreeSet<Integer>();
 
-        while (current != null) {
-        following = following.next;
-        current.next = previous;
-        previous = current;
-        current = following;
+        for(int i = 0; i< nums.length; i++) {
+        tree.add(nums[i]);
         }
 
-        ListNode<Integer> t = l;
-        ListNode<Integer> tr = previous;
+        Object[] arr = tree.toArray();
 
-        while(t != null && tr != null){
-        if(t.value != tr.value){
-        isPal = false;
-        break;
-        } else {
-        t = t.next;
-        tr = tr.next;
-        }
-        }
+        int kthElm = Integer.parseInt(arr[arr.length - k].toString());
 
-
-
-        return isPal;
+        return kthElm;
 
         }
