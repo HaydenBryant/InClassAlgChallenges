@@ -1,20 +1,31 @@
-void swap(int[] items, int firstIndex, int secondIndex) {
-        int temp = items[firstIndex];
-        items[firstIndex] = items[secondIndex];
-        items[secondIndex] = temp;
+//
+// Binary trees are already defined with this interface:
+// class Tree<T> {
+//   Tree(T x) {
+//     value = x;
+//   }
+//   T value;
+//   Tree<T> left;
+//   Tree<T> right;
+// }
+
+ArrayList<Integer> list = new ArrayList<>();
+
+        int[] traverseTree(Tree<Integer> t) {
+
+        traveler(t);
+
+        int[] arr = list.stream().mapToInt(i -> i).toArray();
+
+        return arr;
         }
 
-        int[] bubbleSort(int[] items) {
-
-        int len = items.length;
-
-        for (int i = 0; i < len; i++) {
-        for (int j = 0, stop = len - i; j < stop - 1; j++) {
-        if (items[j] > items[j + 1]) {
-        swap(items, j, j + 1);
+        void traveler(Tree<Integer> trav){
+        list.add(trav.value);
+        if(trav.left != null){
+        traveler(trav.left);
         }
+        if(trav.right != null){
+        traveler(trav.right);
         }
-        }
-
-        return items;
         }
