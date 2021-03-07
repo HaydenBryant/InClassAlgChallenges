@@ -1,4 +1,4 @@
-package hackerrankalgs;
+package hackerrankalgs.Easy;
 
 import java.io.*;
 import java.math.*;
