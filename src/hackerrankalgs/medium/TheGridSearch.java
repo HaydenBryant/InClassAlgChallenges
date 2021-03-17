@@ -11,35 +11,40 @@ public class TheGridSearch {
     public class Solution {
 
         // Complete the gridSearch function below.
-        static String gridSearch(String[] g, String[] p) {
-            for(int i = 0; i < (g.length - p.length); i++){
-                for(int j = 0; j < (g[i].length() - p[0].length()); j++){
-                    if(g[i].substring(j).equals(p[0].substring(0))){
-                        int a = 0;
-                        int b = 0;
-                        for(int k = i; k < (g.length - p.length); k++){
-                            for(int l = j; l < (g[i].length() - p[0].length()); l++){
-                                if(g[k].substring(l).equals(p[a].substring(b))){
-                                    b++;
-                                    continue;
-                                } else {
-                                    break;
-                                }
+        static String gridSearch(String[] g, String[] p)
+        {
+            for(int i = 0; i <= (g.length - p.length); i++)
+            {
+                for(int j = 0;j <= (g[0].length() - p[0].length()); j++)
+                {
+                    int row=i;
+                    int a=0;
+
+                    if(g[i].substring(j,j+p[0].length()).equals(p[0]))
+                    {
+                        a++;
+                        for(int k=1;k<p.length;k++)
+                        {
+                            i++;
+
+                            if(g[i].substring(j,j+p[0].length()).equals(p[k])){
                                 a++;
                             }
+                            else {
+                                break;
+                            }
+
                         }
-
+                        if(a == p.length) {
+                            return "YES";
+                        }
                     }
-                    if(k == p.length){
-                        System.out.println("YES");
-                    } else {
-                        System.out.println("NO");
-                    }
+                    i = row;
                 }
-
             }
-
+            return "NO";
         }
+
 
         private static final Scanner scanner = new Scanner(System.in);
 
@@ -87,5 +92,3 @@ public class TheGridSearch {
             scanner.close();
         }
     }
-
-}
