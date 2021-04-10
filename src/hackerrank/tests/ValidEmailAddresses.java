@@ -13,7 +13,7 @@ public class ValidEmailAddresses {
         emailList.add("julia@gmail.com");
 
         for(String email : emailList){
-            if(email.matches("[a-z]{1,6}+[_]{0,1}+[1-9]{0,4}+@hackerrank.com")){
+            if(email.matches("[a-z]{1,6}[_]?[0-9]{0,4}@hackerrank.com")){
                 System.out.println("True");
             } else {
                 System.out.println("False");
