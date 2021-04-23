@@ -1,4 +1,4 @@
-package hackerrank.tests;
+package hackerrank.tests.DevsTest1;
 
 public class CountingClosedPaths {
     public static void main(String[] args) {

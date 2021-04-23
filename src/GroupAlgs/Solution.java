@@ -10,7 +10,7 @@
 //import static java.util.stream.Collectors.joining;
 //import static java.util.stream.Collectors.toList;
 //
-//public class Solution {
+//public class hackerrank.tests.ProblemSolvingBasic.Solution {
 //
 //    // Complete the migratoryBirds function below.
 //    static int migratoryBirds(List<Integer> arr) {

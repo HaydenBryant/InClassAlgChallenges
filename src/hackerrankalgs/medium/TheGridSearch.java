@@ -8,7 +8,7 @@
 //public class TheGridSearch {
 //
 //
-//    public class Solution {
+//    public class hackerrank.tests.ProblemSolvingBasic.Solution {
 //
 //        // Complete the gridSearch function below.
 //        static String gridSearch(String[] g, String[] p)

@@ -12,7 +12,7 @@
 //public class PlusMinus {
 //
 //
-//    public class Solution {
+//    public class hackerrank.tests.ProblemSolvingBasic.Solution {
 //
 //        // Complete the plusMinus function below.
 //        static void plusMinus(int[] arr) {

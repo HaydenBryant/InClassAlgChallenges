@@ -6,7 +6,7 @@
 //import java.util.concurrent.*;
 //import java.util.regex.*;
 //
-//public class Solution {
+//public class hackerrank.tests.ProblemSolvingBasic.Solution {
 //
 //    // Complete the activityNotifications function below.
 //    static int activityNotifications(int[] expenditure, int d) {
