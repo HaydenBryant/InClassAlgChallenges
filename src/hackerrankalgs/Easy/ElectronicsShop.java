@@ -4,29 +4,20 @@ import java.util.Arrays;
 
 public class ElectronicsShop {
     static int getMoneySpent(int[] keyboards, int[] drives, int b) {
-        Arrays.sort(keyboards);
-        Arrays.sort(drives);
+        int maxPairPrice = 0;
 
-        int maxPairPrice = -1;
-
-        for(int i = 0; i < keyboards.length; i++){
-            int tempKeyPairPrice = 0;
-            int keyBoard = keyboards[i];
-            for(int j = 0; j < drives.length; j++){
-                int tempDrivePairPrice = keyBoard + drives[j];
-                if(tempDrivePairPrice < b){
-                    if(tempDrivePairPrice > tempKeyPairPrice){
-                        tempKeyPairPrice = tempDrivePairPrice;
-                    }
-                }
-            }
-            if(tempKeyPairPrice > maxPairPrice && tempKeyPairPrice != 0){
-                maxPairPrice = tempKeyPairPrice;
+        for(int i = keyboards.length - 1; i >= 0; i--){
+            int keyPair = 0;
+            for(int j = drives.length - 1; j >= 0; j--){
+                keyPair = keyboards[i] + drives[j];
+                if(keyPair > maxPairPrice && keyPair <= b)
+                    maxPairPrice = keyPair;
             }
         }
-
-        return maxPairPrice;
-
+        if(maxPairPrice == 0)
+            return -1;
+        else
+            return maxPairPrice;
     }
 
     public static void main(String[] args) {
