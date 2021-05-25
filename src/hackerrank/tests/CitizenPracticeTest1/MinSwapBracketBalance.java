@@ -3,6 +3,7 @@ package hackerrank.tests.CitizenPracticeTest1;
 public class MinSwapBracketBalance {
     public static void main(String[] args) {
         String brackets = "(()))(";
+        String bracketsHard = "))()(()(";
 
         System.out.println(minimumSwaps(brackets));
     }
@@ -14,20 +15,34 @@ public class MinSwapBracketBalance {
         int close = 0;
         int current = 0;
 
-        for(String bracket : brackets.split("")){
-            if(bracket.equals("(")){
+        String[] arr = brackets.split("");
+
+        for(int i = 0; i < arr.length; i++){
+            if(arr[i].equals("(")){
                 open++;
                 current++;
             }
-            if(bracket.equals(")")){
+            if(arr[i].equals(")")){
                 close++;
                 current--;
             }
             if(current < 0){
-                swaps++;
-                current++;
+                for (int j = i; j < arr.length; j++){
+                    if (arr[j].equals("(")){
+                        arr[i] = "(";
+                        arr[j] = ")";
+                        swaps++;
+                        current = 0;
+                        System.out.println("loop inner run");
+                        break;
+                    }
+
+                }
             }
         }
+
+        System.out.println(open);
+        System.out.println(close);
 
         if(open == close){
             return swaps;
