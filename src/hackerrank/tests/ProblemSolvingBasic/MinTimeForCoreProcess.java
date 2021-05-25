@@ -59,4 +59,4 @@ class Result {
 
 }
 
-public class Solution {
+//public class Solution {
