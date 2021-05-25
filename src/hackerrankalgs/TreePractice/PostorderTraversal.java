@@ -1,3 +1,4 @@
+/*
 package hackerrankalgs.TreePractice;
 
 import java.util.Scanner;
@@ -17,6 +18,7 @@ public class PostorderTraversal {
 
     class Solution {
 
+*/
 /* you only have to complete the function given below.
 Node is defined as
 
@@ -26,7 +28,8 @@ class Node {
     Node right;
 }
 
-*/
+*//*
+
 
         public static void postOrder(Node root) {
             if(root.left != null){
@@ -68,3 +71,4 @@ class Node {
         }
     }
 }
+*/
