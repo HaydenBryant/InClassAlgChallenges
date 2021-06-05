@@ -26,7 +26,12 @@ public class BucketFill {
         char currchar;
         for(int i = 0; i < picture.size(); i++){
             for (int j = 0; j < picture.get(i).length(); j++){
-                if ()
+                if(picture.get(i).charAt(j) != 'd'){
+                    currchar = picture.get(i).charAt(j);
+                }
+                //dfs to find current letter
+                //loop counts strokes
+                //break dfs on non currchar or on 'd'
 
             }
         }
