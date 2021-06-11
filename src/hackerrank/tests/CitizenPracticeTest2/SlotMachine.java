@@ -40,7 +40,9 @@ public class SlotMachine {
                 }
                 maxList.add(max);
                 s.setCharAt(maxDex, '0');
+                history.set(j, s.toString());
             }
+
             totalSpins+= Collections.max(maxList);
             maxList = new ArrayList<>();
         }
