@@ -14,7 +14,11 @@ public class Encryption {
         double high = Math.ceil(Math.sqrt(noSpace.length()));
         double low = Math.floor(Math.sqrt(noSpace.length()));
 
+        //make 2d list
+        //for loop creating single list of size high executing low times
+        //add lists to 2d list
 
+        //nested for loop over 2d list to create encryption
 
         return noSpace;
 
