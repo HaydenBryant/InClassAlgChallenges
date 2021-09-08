@@ -6,8 +6,9 @@ import java.util.List;
 public class Encryption {
     public static void main(String[] args) {
         String s = "Have a nice day";
+        String s1 = "feed the dog";
 
-        encryption(s);
+        System.out.println(encryption(s1));
     }
 
     public static String encryption(String s) {
@@ -24,26 +25,27 @@ public class Encryption {
             if(temp.size() < high){
                 temp.add(Character.toString(noSpace.charAt(i)));
             } else {
-                System.out.println("here");
                 nonEncrypt.add(temp);
                 temp = new ArrayList<>();
                 temp.add(Character.toString(noSpace.charAt(i)));
             }
             if(i + 1 >= noSpaceLen){
-                System.out.println("here");
                 nonEncrypt.add(temp);
             }
         }
 
-        String encrypted = "";
+        StringBuilder encrypted = new StringBuilder();
 
-        for(int i = 0; i < nonEncrypt.size(); i++){
-            for(int j = 0; j < nonEncrypt.get(i).size(); j++){
-
+        for(int i = 0; i < high; i++){
+            for(int j = 0; j < nonEncrypt.size(); j++){
+                if (nonEncrypt.get(j).get(i) != null) {
+                    encrypted.append(nonEncrypt.get(j).get(i));
+                }
             }
+            encrypted.append(" ");
         }
 
-        return noSpace;
+        return encrypted.toString();
 
     }
 }
