@@ -8,7 +8,7 @@ public class Encryption {
         String s = "Have a nice day";
         String s1 = "feed the dog";
 
-        System.out.println(encryption(s1));
+        System.out.println(encryption(s));
     }
 
     public static String encryption(String s) {
@@ -34,11 +34,15 @@ public class Encryption {
             }
         }
 
+
         StringBuilder encrypted = new StringBuilder();
+
 
         for(int i = 0; i < high; i++){
             for(int j = 0; j < nonEncrypt.size(); j++){
-                if (nonEncrypt.get(j).get(i) != null) {
+                if (i >= nonEncrypt.get(j).size()) {
+                    continue;
+                } else {
                     encrypted.append(nonEncrypt.get(j).get(i));
                 }
             }
