@@ -21,5 +21,7 @@ public class QueensAttackII {
                 }
             }
         }
+
+        return totalSquares;
     }
 }
