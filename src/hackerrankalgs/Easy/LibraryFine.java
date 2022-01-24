@@ -9,9 +9,13 @@ public class LibraryFine {
         // Write your code here
         if(y2 < y1){
             return 10000;
+        } else if(y2 > y1){
+            return 0;
         }
         if(m2 < m1){
             return (500 * Math.abs(m1 - m2));
+        } else if(m2 > m1){
+            return 0;
         }
         if(d2 < d1){
             return (15 * Math.abs(d1 - d2));
