@@ -32,12 +32,14 @@ public class CircularArrayRotation {
         //     }
         // }
 
+        List<Integer> newList = a;
+
         for(int i = 0; i < a.size(); i++){
-            a.set(( i +k ) % a.size(), a.get(i));
+            newList.set(( i + k ) % a.size(), a.get(i));
         }
 
         for(int i = 0; i < queries.size(); i++){
-            queries.set(i, a.get(i));
+            queries.set(i, newList.get(queries.get(i)));
         }
 
         return queries;
