@@ -2,12 +2,13 @@ package hackerrankalgs.medium;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class FraudulentActivityNotifications {
     public static void main(String[] args) {
         int d = 4;
-        List<Integer> expenditure = new ArrayList<>(Arrays.asList(10, 20, 30, 40, 50));
+        List<Integer> expenditure = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 4));
 
         System.out.println(activityNotifications(expenditure, d));
     }
@@ -15,24 +16,40 @@ public class FraudulentActivityNotifications {
     public static int activityNotifications(List<Integer> expenditure, int d) {
         // Write your code here
         int notifications = 0;
-        int median = 0;
+        double median;
 
-        List<Integer> startSubList = expenditure.subList(0, d);
+        ArrayList<Integer> subList = new ArrayList<>();
+        for(int i = 0; i < d; i++){
+            subList.add(expenditure.get(i));
+        }
 
-        if (startSubList.size() % 2 != 0){
-            median = startSubList.get(startSubList.size() / 2);
+        median = findMedian(subList);
+
+        for (int i = d; i < expenditure.size(); i++){
+            int expense = expenditure.get(i);
+            if(expense >= 2 * median){
+                notifications++;
+            }
+            subList.remove(0);
+            subList.add(expense);
+            median = findMedian(subList);
+        }
+
+        return notifications;
+    }
+
+    public static double findMedian(List<Integer> subList){
+        double median;
+
+        Collections.sort(subList);
+        if (subList.size() % 2 != 0){
+            median = subList.get(subList.size() / 2);
         } else {
-            median = startSubList.get(startSubList.size() / 2);
-            System.out.println(median);
-            int tempMedian = startSubList.get(startSubList.size() / 2 + 1);
-            System.out.println(tempMedian);
+            median = subList.get((subList.size() - 1) / 2);
+            double tempMedian = subList.get((subList.size() - 1) / 2 + 1);
             median = (median + tempMedian) / 2;
         }
 
-        System.out.println(startSubList);
-
-        System.out.println(median);
-
-        return notifications;
+        return median;
     }
 }
