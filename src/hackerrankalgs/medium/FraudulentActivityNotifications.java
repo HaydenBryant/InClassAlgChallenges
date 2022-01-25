@@ -18,10 +18,11 @@ public class FraudulentActivityNotifications {
         int notifications = 0;
         double median;
 
-        ArrayList<Integer> subList = new ArrayList<>();
-        for(int i = 0; i < d; i++){
-            subList.add(expenditure.get(i));
-        }
+        List<Integer> subList = expenditure.subList(0, d);
+//        for(int i = 0; i < d; i++){
+//            subList.add(expenditure.get(i));
+//        }
+
 
         median = findMedian(subList);
 
@@ -30,8 +31,9 @@ public class FraudulentActivityNotifications {
             if(expense >= 2 * median){
                 notifications++;
             }
-            subList.remove(0);
-            subList.add(expense);
+//            subList.remove(0);
+//            subList.add(expense);
+            subList.set(i % d, expense);
             median = findMedian(subList);
         }
 
