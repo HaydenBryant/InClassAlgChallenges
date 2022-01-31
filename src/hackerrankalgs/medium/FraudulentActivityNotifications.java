@@ -23,35 +23,67 @@ public class FraudulentActivityNotifications {
 //            subList.add(expenditure.get(i));
 //        }
 
+        if(d % 2 != 0){
+            median = findMedianOne(subList);
 
-        median = findMedian(subList);
-
-        for (int i = d; i < expenditure.size(); i++){
-            int expense = expenditure.get(i);
-            if(expense >= 2 * median){
-                notifications++;
+            for (int i = d; i < expenditure.size(); i++){
+                int expense = expenditure.get(i);
+                if(expense >= 2 * median){
+                    notifications++;
+                }
+                subList.set(i % d, expense);
+                median = findMedianOne(subList);
             }
-//            subList.remove(0);
-//            subList.add(expense);
-            subList.set(i % d, expense);
-            median = findMedian(subList);
+        } else {
+            median = findMedianTwo(subList);
+
+            for (int i = d; i < expenditure.size(); i++){
+                int expense = expenditure.get(i);
+                if(expense >= 2 * median){
+                    notifications++;
+                }
+                subList.set(i % d, expense);
+                median = findMedianTwo(subList);
+            }
         }
 
         return notifications;
     }
 
-    public static double findMedian(List<Integer> subList){
+    public static double findMedianOne(List<Integer> subList){
         double median;
 
         Collections.sort(subList);
-        if (subList.size() % 2 != 0){
-            median = subList.get(subList.size() / 2);
-        } else {
-            median = subList.get((subList.size() - 1) / 2);
-            double tempMedian = subList.get((subList.size() - 1) / 2 + 1);
-            median = (median + tempMedian) / 2;
-        }
+
+        median = subList.get(subList.size() / 2);
 
         return median;
     }
+
+    public static double findMedianTwo(List<Integer> subList){
+        double median;
+
+        Collections.sort(subList);
+
+        median = subList.get((subList.size() - 1) / 2);
+        double tempMedian = subList.get((subList.size() - 1) / 2 + 1);
+        median = (median + tempMedian) / 2;
+
+        return median;
+    }
+
+//    public static double findMedian(List<Integer> subList){
+//        double median;
+//
+//        Collections.sort(subList);
+//        if (subList.size() % 2 != 0){
+//            median = subList.get(subList.size() / 2);
+//        } else {
+//            median = subList.get((subList.size() - 1) / 2);
+//            double tempMedian = subList.get((subList.size() - 1) / 2 + 1);
+//            median = (median + tempMedian) / 2;
+//        }
+//
+//        return median;
+//    }
 }
