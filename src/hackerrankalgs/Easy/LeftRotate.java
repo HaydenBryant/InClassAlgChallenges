@@ -13,22 +13,11 @@ public class LeftRotate {
     }
     public static List<Integer> rotLeft(List<Integer> a, int d) {
         // Write your code here
-        List<Integer> out = a;
+        List<Integer> out = new ArrayList<>();
         int size = a.size();
 
         for(int i = 0; i < size; i++){
-            int place = i - d;
-            int spot = Math.abs(place) % size;
-
-            if(size - spot >= size){
-                System.out.println(size - spot);
-                out.set(size - spot, a.get(i));
-            } else {
-                out.set(size - spot, a.get(i));
-            }
-
-
-            System.out.println(size - spot);
+            out.add(a.get((i + d) % size));
         }
 
         return out;
