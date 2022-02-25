@@ -17,17 +17,18 @@ public class LeftRotate {
         int size = a.size();
 
         for(int i = 0; i < size; i++){
-            int place = size - d;
+            int place = i - d;
+            int spot = Math.abs(place) % size;
 
-            if(place < 0){
-                out.set((size - Math.abs(place)), a.get(i));
-                // System.out.println(a.get(i));
-                // System.out.println(size - place);
+            if(size - spot >= size){
+                System.out.println(size - spot);
+                out.set(size - spot, a.get(i));
             } else {
-                out.set(Math.abs(place), a.get(i));
-                // System.out.println(a.get(i));
-                // System.out.println(place);
+                out.set(size - spot, a.get(i));
             }
+
+
+            System.out.println(size - spot);
         }
 
         return out;
