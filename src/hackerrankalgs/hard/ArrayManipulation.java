@@ -18,18 +18,18 @@ public class ArrayManipulation {
     public static long arrayManipulation(int n, List<List<Integer>> queries) {
         // Write your code here
         long max = -999999;
-        List<Integer> listManip = new ArrayList<>();
+        List<Long> listManip = new ArrayList<>();
         for(long i = 0; i < n; i++){
-            listManip.add(0);
+            listManip.add((long)0);
         }
 
         for(List<Integer> list : queries){
-            int start = list.get(0) - 1;
-            int end = list.get(1) - 1;
-            int add = list.get(2);
-            for(int i = start; i <= end; i++){
-                listManip.set(i, listManip.get(i) + add);
-                long curr = listManip.get(i);
+            long start = list.get(0) - 1;
+            long end = list.get(1) - 1;
+            long add = list.get(2);
+            for(long i = start; i <= end; i++){
+                listManip.set((int)i, listManip.get((int)i) + add);
+                long curr = listManip.get((int)i);
                 if(curr > max){
                     max = curr;
                 }
