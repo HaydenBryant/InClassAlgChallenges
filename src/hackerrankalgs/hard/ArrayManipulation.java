@@ -1,0 +1,41 @@
+package hackerrankalgs.hard;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class ArrayManipulation {
+    public static void main(String[] args) {
+        List<List<Integer>> queries = new ArrayList<>();
+        queries.add(new ArrayList<>(Arrays.asList(2, 6, 8)));
+        queries.add(new ArrayList<>(Arrays.asList(3, 5, 7)));
+        queries.add(new ArrayList<>(Arrays.asList(1, 8, 1)));
+        queries.add(new ArrayList<>(Arrays.asList(5, 9, 15)));
+        int n = 10;
+        System.out.println(arrayManipulation(n, queries));
+    }
+
+    public static long arrayManipulation(int n, List<List<Integer>> queries) {
+        // Write your code here
+        long max = -999999;
+        List<Integer> listManip = new ArrayList<>();
+        for(long i = 0; i < n; i++){
+            listManip.add(0);
+        }
+
+        for(List<Integer> list : queries){
+            int start = list.get(0) - 1;
+            int end = list.get(1) - 1;
+            int add = list.get(2);
+            for(int i = start; i <= end; i++){
+                listManip.set(i, listManip.get(i) + add);
+                long curr = listManip.get(i);
+                if(curr > max){
+                    max = curr;
+                }
+            }
+        }
+
+        return max;
+    }
+}
