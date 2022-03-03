@@ -7,8 +7,14 @@ import java.util.List;
 
 public class CountTriplets {
     public static void main(String[] args) {
-        ArrayList<Integer> arr = new ArrayList<>(Arrays.asList(1, 3, 9, 9, 27, 81));
-        long r = 3;
+        ArrayList<Integer> arr = new ArrayList<>(Arrays.asList(
+                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1, 1, 1, 1
+        ));
+        long r = 1;
 
         System.out.println(countTriplets(arr, r));
     }
@@ -30,7 +36,7 @@ public class CountTriplets {
             long left = 0;
             long right = 0;
 
-            if(numMap.containsKey(curr / r) && numMap.containsKey(curr * r)){
+            if(numMap.containsKey(curr / r) && numMap.containsKey(curr * r) && curr % r == 0){
                 left = numMap.get(curr / r);
                 right = numMap.get(curr * r);
             }
