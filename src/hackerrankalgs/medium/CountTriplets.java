@@ -41,6 +41,8 @@ public class CountTriplets {
                 right = numMap.get(curr * r);
             }
             triplets += left * right;
+
+            numMap.put(curr, numMap.get(curr) - 1);
         }
 
         return triplets;
