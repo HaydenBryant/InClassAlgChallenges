@@ -15,25 +15,50 @@ public class ArrayManipulation {
         System.out.println(arrayManipulation(n, queries));
     }
 
+//    public static long arrayManipulation(int n, List<List<Integer>> queries) {
+//        // Write your code here
+//        long max = -999999;
+//        List<Long> listManip = new ArrayList<>();
+//        for(long i = 0; i < n; i++){
+//            listManip.add((long)0);
+//        }
+//
+//        for(List<Integer> list : queries){
+//            long start = list.get(0) - 1;
+//            long end = list.get(1) - 1;
+//            long add = list.get(2);
+//            for(long i = start; i <= end; i++){
+//                listManip.set((int)i, listManip.get((int)i) + add);
+//                long curr = listManip.get((int)i);
+//                if(curr > max){
+//                    max = curr;
+//                }
+//            }
+//        }
+//
+//        return max;
+//    }
+
     public static long arrayManipulation(int n, List<List<Integer>> queries) {
-        // Write your code here
         long max = -999999;
         List<Long> listManip = new ArrayList<>();
-        for(long i = 0; i < n; i++){
+
+        for(long i = 0; i < n + 1; i++){
             listManip.add((long)0);
         }
 
         for(List<Integer> list : queries){
-            long start = list.get(0) - 1;
-            long end = list.get(1) - 1;
-            long add = list.get(2);
-            for(long i = start; i <= end; i++){
-                listManip.set((int)i, listManip.get((int)i) + add);
-                long curr = listManip.get((int)i);
-                if(curr > max){
-                    max = curr;
-                }
-            }
+            int a = list.get(0);
+            int b = list.get(1);
+            int k = list.get(2);
+            listManip.set(a - 1, listManip.get(a - 1) + k);
+            listManip.set(b, listManip.get(b) - k);
+        }
+
+        int temp = 0;
+        for(int i = 0; i < listManip.size(); i++){
+            temp += listManip.get(i);
+            max = Math.max(max, temp);
         }
 
         return max;
