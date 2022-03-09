@@ -39,28 +39,51 @@ public class ArrayManipulation {
 //        return max;
 //    }
 
-    public static long arrayManipulation(int n, List<List<Integer>> queries) {
-        long max = -999999;
-        List<Long> listManip = new ArrayList<>();
+//    public static long arrayManipulation(int n, List<List<Integer>> queries) {
+//        long max = -999999;
+//        List<Long> listManip = new ArrayList<>();
+//
+//        for(long i = 0; i < n + 1; i++){
+//            listManip.add((long)0);
+//        }
+//
+//        for(List<Integer> list : queries){
+//            int a = list.get(0);
+//            int b = list.get(1);
+//            int k = list.get(2);
+//            listManip.set(a - 1, listManip.get(a - 1) + k);
+//            listManip.set(b, listManip.get(b) - k);
+//        }
+//
+//        int temp = 0;
+//        for(int i = 0; i < listManip.size(); i++){
+//            temp += listManip.get(i);
+//            max = Math.max(max, temp);
+//        }
+//
+//        return max;
+//    }
 
-        for(long i = 0; i < n + 1; i++){
-            listManip.add((long)0);
-        }
+    public static long arrayManipulation(int n, List<List<Integer>> queries) {
+        long [] array = new long[n + 1];
 
         for(List<Integer> list : queries){
             int a = list.get(0);
             int b = list.get(1);
             int k = list.get(2);
-            listManip.set(a - 1, listManip.get(a - 1) + k);
-            listManip.set(b, listManip.get(b) - k);
+            array[a - 1] += k;
+            array[b] -= k;
         }
 
-        int temp = 0;
-        for(int i = 0; i < listManip.size(); i++){
-            temp += listManip.get(i);
-            max = Math.max(max, temp);
+        long sum = 0;
+        long max = 0;
+        for (int i = 0; i < n; i++) {
+            sum += array[i];
+            max = Math.max(max, sum);
         }
 
         return max;
     }
+
+
 }
