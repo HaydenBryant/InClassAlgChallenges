@@ -2,7 +2,7 @@ package hackerrankalgs.medium;
 
 public class SpecialStringAgain {
     public static void main(String[] args) {
-        String s = "aaaa";
+        String s = "aaaadaaaa";
         int n = 4;
         System.out.println(substrCount(n, s));
     }
@@ -17,13 +17,24 @@ public class SpecialStringAgain {
 
             if(i + 1 < n && s.charAt(i + 1) == curr){
                 temp++;
-                System.out.println(temp);
+                continue;
             } else if(temp > 1){
-                temp -= 1;
-                temp = temp * (temp + 1) / 2;
-                System.out.println("Math is " + temp);
-                count = count + temp;
-                temp = 1;
+                long combos = temp - 1;
+                combos = combos * (combos + 1) / 2;
+                count += combos;
+                // temp = 1;
+            }
+
+            if(i + 2 < n && s.charAt(i + 2) == curr){
+                long palCount = 0;
+                for(int j = i + 2; j < n; j++){
+                    if(s.charAt(j) == curr){
+                        palCount++;
+                    } else {
+                        break;
+                    }
+                }
+                count += palCount;
             }
         }
 
