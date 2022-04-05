@@ -1,8 +1,6 @@
 package hackerrankalgs.Easy;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class acmicpc {
     public static void main(String[] args) {
@@ -43,17 +41,28 @@ public class acmicpc {
             person = 1;
         }
 
-        for(int i = 0; i < topic.get(0).length(); i++){
-            for(int j = i + 1; j < topic.get(0).length(); j++){
-
+        int maxTopicKnowledge = 0;
+        int size = topicMap.keySet().size();
+        for(int i = 0; i < size; i++){
+            ArrayList<Integer> list = topicMap.get(i + 1);
+            for(int j = i + 1; j < size; j++){
+                Set<Integer> temp = new HashSet<>(list);
+                temp.addAll(topicMap.get(j));
+                int currTopicKnowledge = temp.size();
+                if(currTopicKnowledge > maxTopicKnowledge){
+                    maxTopicKnowledge = currTopicKnowledge;
+                    person = 1;
+                } else if (currTopicKnowledge == maxTopicKnowledge){
+                    person++;
+                }
             }
         }
 
-        //check every user to find greatest lists of unique values using sets of combined lists
-        //reset temp set after each second is added
-        //track number of greatest lists as you iterate until end or greater list is encountered
-        //add final max size and number of sets to output and return
+        maxSubjectTeams.add(maxTopicKnowledge);
+        maxSubjectTeams.add(person);
+        System.out.println(topicMap);
 
         return maxSubjectTeams;
     }
+
 }
