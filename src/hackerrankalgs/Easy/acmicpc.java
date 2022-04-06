@@ -1,5 +1,6 @@
 package hackerrankalgs.Easy;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class acmicpc {
@@ -18,49 +19,39 @@ public class acmicpc {
 
         HashMap<Integer, ArrayList<Integer>> topicMap = new HashMap<>();
 
-        int person = 1;
-        for(String knowledge : topic.get(0).split("")){
+        for(int i = 0; i < topic.size(); i++){
             ArrayList<Integer> temp = new ArrayList<>();
-            if(knowledge.equals("1")){
-                temp.add(1);
-                topicMap.put(person, temp);
-            } else {
-                topicMap.put(person, temp);
-            }
-            person++;
-        }
-        person = 1;
-
-        for(int i = 1; i < topic.size(); i++){
+            int topics = 1;
             for(String knowledge : topic.get(i).split("")){
                 if(knowledge.equals("1")){
-                    topicMap.get(person).add(i + 1);
+                    temp.add(topics);
                 }
-                person++;
+                topics++;
             }
-            person = 1;
+            topicMap.put(i + 1, temp);
         }
 
-        int maxTopicKnowledge = 0;
         int size = topicMap.keySet().size();
+        int maxKnowledge = 0;
+        int maxKnowlPeople = 1;
+
         for(int i = 0; i < size; i++){
-            ArrayList<Integer> list = topicMap.get(i + 1);
+            ArrayList<Integer> baseSet = topicMap.get(i + 1);
             for(int j = i + 1; j < size; j++){
-                Set<Integer> temp = new HashSet<>(list);
-                temp.addAll(topicMap.get(j));
-                int currTopicKnowledge = temp.size();
-                if(currTopicKnowledge > maxTopicKnowledge){
-                    maxTopicKnowledge = currTopicKnowledge;
-                    person = 1;
-                } else if (currTopicKnowledge == maxTopicKnowledge){
-                    person++;
+                Set<Integer> set = new HashSet<>(baseSet);
+                set.addAll(topicMap.get(j + 1));
+                int knowledgeSet = set.size();
+                if(knowledgeSet > maxKnowledge){
+                    maxKnowledge = set.size();
+                    maxKnowlPeople = 1;
+                } else if (knowledgeSet == maxKnowledge){
+                    maxKnowlPeople++;
                 }
             }
         }
 
-        maxSubjectTeams.add(maxTopicKnowledge);
-        maxSubjectTeams.add(person);
-        System.out.println(topicMap);
+        maxSubjectTeams.add(maxKnowledge);
+        maxSubjectTeams.add(maxKnowlPeople);
 
         return maxSubjectTeams;
     }
