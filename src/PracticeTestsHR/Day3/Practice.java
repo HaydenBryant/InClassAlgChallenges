@@ -34,5 +34,24 @@ public class Practice {
         }
         System.out.println();
     }
+
+    public static String caesarCipher(String s, int k) {
+        // Write your code here
+        String ans = "";
+
+        for(char c : s.toCharArray()){
+            if(Character.isLetter(c)){
+                if(Character.isLowerCase(c)){
+                    ans += String.valueOf((char)((c + k - 97) % 26 + 97));
+                } else {
+                    ans += String.valueOf((char)((c + k - 65) % 26 + 65));
+                }
+            } else {
+                ans += c;
+            }
+        }
+
+        return ans;
+    }
 }
-}
+
