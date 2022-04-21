@@ -55,7 +55,7 @@ public class Practice {
         return "YES";
     }
 
-    public static int superDigit(String n, int k) {
+    public static int superDigits(String n, int k) {
         // Write your code here
         int superDigit = 0;
         String p = "";
@@ -66,21 +66,34 @@ public class Practice {
         int sum = 0;
         int i = 0;
         while (i < p.length()){
+            int len = p.length();
             sum += Character.getNumericValue(p.charAt(i));
 
-            if(i + 1 == p.length()){
+            if(i + 1 == len){
                 if(sum > 9){
                     p = String.valueOf(sum);
                     sum = 0;
-                    i = 0;
+                    i = -1;
                 }
             }
             i++;
         }
-
-
-
         superDigit = sum;
         return superDigit;
     }
+
+    public static int superDigit(String n, int k){
+        if(n.length() == 1 && k == 1){
+            return Integer.valueOf(n);
+        }
+
+        long sum = 0;
+        for(int i = 0; i < n.length(); i++){
+            sum += Character.getNumericValue(n.charAt(i));
+        }
+        sum *= k;
+
+        return superDigit(Long.toString(sum), 1);
+    }
+
 }
