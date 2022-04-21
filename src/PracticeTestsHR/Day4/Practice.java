@@ -18,8 +18,12 @@ public class Practice {
         String b = "hjk"; grid.add(b);
         String c = "mpq"; grid.add(c);
         String d = "rtv"; grid.add(d);
-        System.out.println(gridChallenge(grid));
+//        System.out.println(gridChallenge(grid));
 
+        //superDigit
+        String n = "148";
+        int k = 3;
+        System.out.println(superDigit(n, k));
 
     }
 
@@ -49,5 +53,34 @@ public class Practice {
         }
 
         return "YES";
+    }
+
+    public static int superDigit(String n, int k) {
+        // Write your code here
+        int superDigit = 0;
+        String p = "";
+        for(int i = 0; i < k; i++){
+            p += n;
+        }
+
+        int sum = 0;
+        int i = 0;
+        while (i < p.length()){
+            sum += Character.getNumericValue(p.charAt(i));
+
+            if(i + 1 == p.length()){
+                if(sum > 9){
+                    p = String.valueOf(sum);
+                    sum = 0;
+                    i = 0;
+                }
+            }
+            i++;
+        }
+
+
+
+        superDigit = sum;
+        return superDigit;
     }
 }
