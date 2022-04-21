@@ -18,12 +18,16 @@ public class Practice {
         String b = "hjk"; grid.add(b);
         String c = "mpq"; grid.add(c);
         String d = "rtv"; grid.add(d);
-//        System.out.println(gridChallenge(grid));
+        System.out.println(gridChallenge(grid));
 
         //superDigit
         String n = "148";
         int k = 3;
         System.out.println(superDigit(n, k));
+
+        //minimumBribes
+        List<Integer> q = new ArrayList<>(Arrays.asList(2, 1, 5, 3, 4));
+        minimumBribes(q);
 
     }
 
@@ -55,33 +59,6 @@ public class Practice {
         return "YES";
     }
 
-    public static int superDigits(String n, int k) {
-        // Write your code here
-        int superDigit = 0;
-        String p = "";
-        for(int i = 0; i < k; i++){
-            p += n;
-        }
-
-        int sum = 0;
-        int i = 0;
-        while (i < p.length()){
-            int len = p.length();
-            sum += Character.getNumericValue(p.charAt(i));
-
-            if(i + 1 == len){
-                if(sum > 9){
-                    p = String.valueOf(sum);
-                    sum = 0;
-                    i = -1;
-                }
-            }
-            i++;
-        }
-        superDigit = sum;
-        return superDigit;
-    }
-
     public static int superDigit(String n, int k){
         if(n.length() == 1 && k == 1){
             return Integer.valueOf(n);
@@ -94,6 +71,36 @@ public class Practice {
         sum *= k;
 
         return superDigit(Long.toString(sum), 1);
+    }
+
+    public static void minimumBribes(List<Integer> q) {
+        // Write your code here
+        int bribes = 0;
+        Boolean chaos = false;
+        int len = q.size();
+        int last = q.get(len - 1);
+
+        for(int i = len - 2; i >= 0; i--){
+            int curr = q.get(i);
+            if(curr - 1 - i > 2){
+                chaos = true;
+                break;
+            }
+
+            if(curr == i + 3){
+                bribes += 2;
+            } else if(curr > last){
+                bribes++;
+            } else {
+                last = curr;
+            }
+        }
+
+        if(chaos){
+            System.out.println("Too chaotic");
+        } else {
+            System.out.println(bribes);
+        }
     }
 
 }
