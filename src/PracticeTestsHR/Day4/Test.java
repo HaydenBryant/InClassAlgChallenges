@@ -10,7 +10,7 @@ public class Test {
         List<Integer> a = new ArrayList<>(Arrays.asList(1, 5)); petrolPumps.add(a);
         List<Integer> b = new ArrayList<>(Arrays.asList(10, 3)); petrolPumps.add(b);
         List<Integer> c = new ArrayList<>(Arrays.asList(3, 4)); petrolPumps.add(c);
-        System.out.println(truckTour(petrolPumps));
+        System.out.println(truckTours(petrolPumps));
     }
 
 
