@@ -1,12 +1,18 @@
 package PracticeTestsHR.Day5;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 public class Practice {
+
+    //merge two sorted lists
+    //return to this and make a recursion or iterative method with just linked lists
 
     static class SinglyLinkedListNode {
         public int data;
@@ -52,10 +58,6 @@ public class Practice {
         }
     }
 
-    public static void main(String[] args) {
-
-    }
-
     static SinglyLinkedListNode mergeLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
         SinglyLinkedListNode aCurr = head1;
         SinglyLinkedListNode bCurr = head2;
@@ -83,70 +85,55 @@ public class Practice {
         return head;
     }
 
-//    static SinglyLinkedListNode mergeLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
-//        Boolean aNull = false;
-//        Boolean bNull = false;
-//        SinglyLinkedListNode head;
-//        SinglyLinkedListNode aCurr;
-//        SinglyLinkedListNode bCurr;
-//
-//        if(head1.data < head2.data){
-//            head = new SinglyLinkedListNode(head1.data);
-//            aCurr = head1.next;
-//            bCurr = head2;
-//        } else {
-//            head = new SinglyLinkedListNode(head2.data);
-//            aCurr = head1;
-//            bCurr = head2.next;
-//        }
-//
-//        SinglyLinkedListNode hCurr = head;
-//
-//        while(true){
-//            SinglyLinkedListNode temp;
-//            if(aCurr == null && bCurr != null){
-//                temp = new SinglyLinkedListNode(bCurr.data);
-//                hCurr.next = temp;
-//                hCurr = hCurr.next;
-//                bCurr = bCurr.next;
-//                continue;
-//            }
-//            if(bCurr == null && aCurr != null){
-//                temp = new SinglyLinkedListNode(aCurr.data);
-//                hCurr.next = temp;
-//                hCurr = hCurr.next;
-//                aCurr = aCurr.next;
-//                continue;
-//            }
-//            if(aCurr.data <= bCurr.data){
-//                temp = new SinglyLinkedListNode(aCurr.data);
-//                hCurr.next = temp;
-//                hCurr = hCurr.next;
-//                aCurr = aCurr.next;
-//                continue;
-//            } else if (aCurr.data > bCurr.data){
-//                temp = new SinglyLinkedListNode(bCurr.data);
-//                hCurr.next = temp;
-//                hCurr = hCurr.next;
-//                bCurr = bCurr.next;
-//                continue;
-//            }
-//            break;
-//        }
-//
-//        // while(aCurr.next == null && bCurr.next == null){
-//        //     SinglyLinkedListNode next;
-//
-//        //     if(aCurr.data < bCurr.data){
-//        //         System.out.println(aCurr.data);
-//        //         aCurr = aCurr.next;
-//        //         continue;
-//        //     } else {
-//        //         System.out.println(bCurr.data);
-//        //         bCurr = bCurr.next;
-//        //     }
-//        // }
-//
-//        return head;
-//    }
+    //Queue using two stacks
+    private static Stack<Integer> s1 = new Stack<>();
+    private static Stack<Integer> s2 = new Stack<>();
+
+    private static void enqueue(int num){
+        s1.push(num);
+    }
+
+    private static int dequeue(){
+        if(s2.size() == 0) {
+            while (!s1.isEmpty()) {
+                s2.push(s1.pop());
+            }
+        }
+        return s2.pop();
+    }
+
+    private static int peek(){
+        if(s2.size() == 0) {
+            while (!s1.isEmpty()) {
+                s2.push(s1.pop());
+            }
+        }
+        return s2.peek();
+    }
+
+    public static void mains(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        BufferedReader bReader = new BufferedReader(new InputStreamReader(System.in));
+
+        try{
+            int q = Integer.parseInt(bReader.readLine());
+            for(int i = 0; i < q; i++){
+                String query = bReader.readLine();
+                if(query.startsWith("1")){
+                    int num = Integer.parseInt(query.split(" ")[1]);
+                    enqueue(num);
+                } else if (query.startsWith("2")){
+                    dequeue();
+                } else if (query.startsWith("3")){
+                    System.out.println(peek());
+                }
+
+            }
+
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+
 }
