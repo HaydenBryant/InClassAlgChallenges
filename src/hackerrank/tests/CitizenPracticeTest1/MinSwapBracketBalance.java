@@ -73,4 +73,5 @@ public class MinSwapBracketBalance {
             return -1;
         }
     }
+
 }

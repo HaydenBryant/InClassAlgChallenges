@@ -4,10 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class Practice {
 
@@ -85,6 +82,8 @@ public class Practice {
         return head;
     }
 
+
+
     //Queue using two stacks
     private static Stack<Integer> s1 = new Stack<>();
     private static Stack<Integer> s2 = new Stack<>();
@@ -135,5 +134,62 @@ public class Practice {
         }
     }
 
+    public static String isBalanced(String s) {
+        // Write your code here
+        Stack<Character> brackStack = new Stack<>();
+
+        for(char brack : s.toCharArray()){
+            if(brack == '{' || brack == '(' || brack == '['){
+                brackStack.push(brack);
+            } else {
+                if(brackStack.isEmpty()){
+                    return "NO";
+                }
+                if(brackStack.peek() == '{' && brack == '}'){
+                    brackStack.pop();
+                } else if(brackStack.peek() == '[' && brack == ']'){
+                    brackStack.pop();
+                } else if(brackStack.peek() == '(' && brack == ')'){
+                    brackStack.pop();
+                } else {
+                    return "NO";
+                }
+            }
+        }
+        if(brackStack.isEmpty()){
+            return "YES";
+        }
+        return "NO";
+    }
+
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>(Arrays.asList(
+                "()[{}()]([[][]()[[]]]{()})([]()){[]{}}{{}}{}(){([[{}([]{})]])}",
+                "{][({(}]][[[{}]][[[())}[)(]([[[)][[))[}[]][()}))](]){}}})}[{]{}{((}]}{{)[{[){{)[]]}))]()]})))[",
+            "[)](][[([]))[)",
+            "]}]){[{{){",
+            "{[(}{)]]){(}}(][{{)]{[(((}{}{)}[({[}[}((}{()}[]})]}]]))((]][[{{}[(}})[){()}}{(}{{({{}[[]})]{((]{[){[",
+            "()}}[(}])][{]{()([}[}{}[{[]{]](]][[))(()[}(}{[{}[[]([{](]{}{[){()[{[{}}{[{()(()({}([[}[}[{(]})",
+            "){[])[](){[)}[)]}]]){](]()]({{)(]])(]{(}(}{)}])){[{}((){[({(()[[}](]})]}({)}{)]{{{",
+            "[(})])}{}}]{({[]]]))]})]",
+            "[{",
+            "{}([{()[]{{}}}])({})",
+            "{({}{[({({})([[]])}({}))({})]})}",
+            "()[]",
+            "{)[])}]){){]}[(({[)[{{[((]{()[]}][([(]}{](])()(}{(]}{})[)))[](){({)][}()((",
+            "[][(([{}])){}]{}[()]{([[{[()]({}[])()()}[{}][]]])}",
+            "(}]}",
+            "(([{()}]))[({[{}{}[]]{}})]{((){}{()}){{}}}{}{{[{[][]([])}[()({}())()({[]}{{[[]]([])}})()]]}}",
+            "[(([){[](}){){]]}{}([](([[)}[)})[(()[]){})}}]][({[}])}{(({}}{{{{])({]]}[[{{(}}][{)([)]}}",
+            "()()[()([{[()][]{}(){()({[]}[(((){(())}))]()){}}}])]",
+            "({)}]}[}]{({))}{)]()(](])})][(]{}{({{}[]{][)){}{}))]()}((][{]{]{][{}[)}}{)()][{[{{[[",
+            ")}(()[])(}]{{{}[)([})]()}()]}(][}{){}}})}({](){([()({{(){{",
+            "}([]]][[){}}[[)}[(}(}]{(}[{}][{}](}]}))]{][[}(({(]}[]{[{){{(}}[){[][{[]{[}}[)]}}]{}}(}"
+        ));
+
+        for(String s : list){
+            System.out.println(isBalanced(s));
+        }
+    }
 
 }
