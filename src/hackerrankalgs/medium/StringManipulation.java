@@ -8,7 +8,7 @@ public class StringManipulation {
     public static void main(String[] args) {
         String s = "Hello, how are you.";
 
-        System.out.println(reverseTwo(s));
+        System.out.println(reverseThree(s));
     }
 
     public static String reverseOne(String s){
@@ -51,9 +51,11 @@ public class StringManipulation {
 
     public static String reverseThree(String s){
         String out = "";
-        HashMap<Integer, String> outMap = new HashMap<>();
+        HashMap<Integer, String> wordMap = new HashMap<>();
+        HashMap<Integer, String> punctMap = new HashMap<>();
 
-        int place = 0;
+        int wordPlace = 0;
+        int punctPlace = 0;
         String temp = Character.toString(s.charAt(0));
         for(int i = 1; i < s.length(); i++){
             char letter = s.charAt(i);
@@ -62,15 +64,34 @@ public class StringManipulation {
             } else if(!Character.isLetter(temp.charAt(0)) && !Character.isLetter(letter)){
                 temp += letter;
             } else {
-                outMap.put(place, temp);
-                temp = Character.toString(letter);
-                place++;
+                if(!Character.isLetter(letter)){
+                    wordMap.put(wordPlace, temp);
+                    temp = Character.toString(letter);
+                    wordPlace++;
+                } else {
+                    punctMap.put(punctPlace, temp);
+                    temp = Character.toString(letter);
+                    punctPlace++;
+                }
             }
         }
 
-//        for(int i = place; i >= 0; i--){
-//            out
-//        }
+        if(Character.isLetter(temp.charAt(0))){
+            wordMap.put(wordPlace, temp);
+            wordPlace++;
+        } else {
+            punctMap.put(punctPlace, temp);
+            punctPlace++;
+        }
+
+        int punctI = 0;
+        for(int i = wordPlace - 1; i >= 0; i--){
+            out += wordMap.get(i);
+            if(punctI <= punctPlace){
+                out += punctMap.get(punctI);
+                punctI++;
+            }
+        }
 
         return out;
     }
