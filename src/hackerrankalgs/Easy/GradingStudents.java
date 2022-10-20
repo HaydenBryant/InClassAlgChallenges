@@ -1,68 +1,31 @@
-//import java.io.*;
-//import java.math.*;
-//import java.security.*;
-//import java.text.*;
-//import java.util.*;
-//import java.util.concurrent.*;
-//import java.util.function.*;
-//import java.util.regex.*;
-//import java.util.stream.*;
-//import static java.util.stream.Collectors.joining;
-//import static java.util.stream.Collectors.toList;
-//
-//class Result {
-//
-//    /*
-//     * Complete the 'gradingStudents' function below.
-//     *
-//     * The function is expected to return an INTEGER_ARRAY.
-//     * The function accepts INTEGER_ARRAY grades as parameter.
-//     */
-//
-//    public static List<Integer> gradingStudents(List<Integer> grades) {
-//        List<Integer> list = new ArrayList<Integer>();
-//        for(int marks:grades){
-//            if(marks < 38 || marks % 5 <= 2){
-//                list.add(marks);
-//            }else if(marks % 5 > 2){
-//                int add = 5 -(marks % 5);
-//                list.add(marks + add);
-//            }
-//        }
-//        return list;
-//
-//    }
-//
-//}
-//
-//public class Solution {
-//    public static void main(String[] args) throws IOException {
-//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-//        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
-//
-//        int gradesCount = Integer.parseInt(bufferedReader.readLine().trim());
-//
-//        List<Integer> grades = IntStream.range(0, gradesCount).mapToObj(i -> {
-//            try {
-//                return bufferedReader.readLine().replaceAll("\\s+$", "");
-//            } catch (IOException ex) {
-//                throw new RuntimeException(ex);
-//            }
-//        })
-//                .map(String::trim)
-//                .map(Integer::parseInt)
-//                .collect(toList());
-//
-//        List<Integer> result = Result.gradingStudents(grades);
-//
-//        bufferedWriter.write(
-//                result.stream()
-//                        .map(Object::toString)
-//                        .collect(joining("\n"))
-//                        + "\n"
-//        );
-//
-//        bufferedReader.close();
-//        bufferedWriter.close();
-//    }
-//}
+package hackerrankalgs.Easy;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class GradingStudents {
+
+    public static void main(String[] args) {
+        List<Integer> grades = new ArrayList<>(Arrays.asList(
+                85, 95, 21, 0, 18, 100, 18, 62, 30, 61, 55, 0, 45, 2, 29, 55, 61, 40, 14, 4, 29, 100,
+                37, 23, 46, 9, 80, 62, 20, 40, 51, 100, 60, 47, 4, 86, 61, 70, 17, 45, 6, 1, 95, 95)
+        );
+
+        System.out.println(gradingStudents(grades));
+    }
+
+    public static List<Integer> gradingStudents(List<Integer> grades) {
+        List<Integer> list = new ArrayList<Integer>();
+        for(int marks:grades){
+            if(marks < 38 || marks % 5 <= 2){
+                list.add(marks);
+            }else if(marks % 5 > 2){
+                int add = 5 -(marks % 5);
+                list.add(marks + add);
+            }
+        }
+        return list;
+
+    }
+}
